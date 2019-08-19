@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.min.css">
+	<script type="text/javascript" src="js/jquery.js"></script>
+
+	<title>Check Inventry</title>
+
+
+	<style type="text/css">
+
+		.center-div{
+			position: absolute;
+			top: 30%;
+			width: 100%;
+			height: 300px;
+			background-color: rgba(90,90,90,0.2);
+			text-align: center;
+			padding: 10px;
+		}
+		.inventory-table-div{
+			padding: 10px;
+			width: 80%;
+			background-color: rgba(90,90,90,0.2);
+			margin-left: 10%;
+			height: 300px;
+			margin-top: 50px;
+
+
+		}
+		.quantity-table-quantity{
+			width: 20%
+		}
+		.update-quantity-input{
+			width: 32%;
+			float: left;
+			margin-right: 20px;
+
+		}
+		.operations-col{
+			width: 35%;
+		}
+	</style>
+</head>
+<body>
+	<div class="inventory-table-div">
+
+	<?php 
+
+	// Print All Inventry Items 
+
+	require_once 'inc/connection.php';
+	$query1 = "SELECT * FROM inventory";
+	$result1 = mysqli_query($connection, $query1);
+	echo "<table class='inventory-table table table-bordered'> <tr> <th>Item Name</th> <th class='quantity-table-quantity'>Quantiry</th><th class='operations-col'>Operations</th> </tr> ";
+
+	while($record1= mysqli_fetch_assoc($result1)){
+		echo "<tr>";
+		echo "<td>".$record1['itemName']."</td><td>".$record1['quantity']."</td><td><input id = '".$record1['itemName']."' class='form-control update-quantity-input hidden' type='text' name='' placeholder='Quantity'> <button class='btn btn-info  update-inventory-button' value='".$record1['itemName']."'>Update</button></td>";
+		echo "</tr>";
+
+	}
+
+	?>
+
+	</div>
+	
+</body>
+</html>
+
+<script type="text/javascript">
+	
+	$('.update-inventory-button').click(function(){
+		var itemName=$(this).attr('value');
+
+		$('.update-quantity-input').addClass('hidden');
+		$('#'+itemName).removeClass('hidden');
+
+	});
+
+</script>

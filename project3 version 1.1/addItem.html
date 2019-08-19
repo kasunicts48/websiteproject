@@ -1,0 +1,136 @@
+
+
+<?php 
+
+require_once 'inc/connection.php';
+
+
+if(isset($_POST['addItem'])){
+
+	$itemName0 = $_POST['itemName0'];
+	$ItemPrice0 = $_POST['ItemPrice0'];
+	$desc0 = $_POST['desc0'];
+
+
+	$query1 = "INSERT INTO `item` ( `itemName`, `price`, `itemDesc`) VALUES ('$itemName0', $ItemPrice0  , '$desc0')";
+
+	$query2 = "INSERT INTO `inventory` ( `itemName`, `quantity`) VALUES ('$itemName0', 0)";
+
+
+	mysqli_query($connection, $query1);
+	mysqli_query($connection, $query2);
+
+
+
+
+}
+
+
+ ?>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.min.css">
+	<script type="text/javascript" src="js/jquery.js"></script>
+
+	<title>Add Item</title>
+	<style type="text/css">
+
+		.add-item-div{
+			margin-top: 50px;
+			background-color: rgba(90,90,90,0.1);
+			width: 100%;
+			padding: 10px;
+			height: 400px;
+			overflow-y: scroll;
+		}
+		.addItem-inputs{
+			width: 25%;
+			float: left;
+			margin-right: 20px;
+		}
+
+		.head{
+            font-family: ubuntu;
+            color: rgb(110, 110, 110);
+        }
+
+	</style>
+</head>
+<body>
+
+	<div class="add-item-div" >
+			<h1 class="head">Add Items</h1>
+
+		<div id="divone">
+			<input type="text" name="itemName" class="itemName0 addItem-inputs form-control" placeholder="Item Name"> 
+			 <input type="text" name="ItemPrice" class="ItemPrice0 addItem-inputs form-control" placeholder="Price"> 
+			 <input type="text" name="desc" class="desc0 addItem-inputs form-control" placeholder="Description"> 
+			
+		</div>
+		<button class="btn btn-success add-btn" onclick="addNewElem()">Add</button>
+	</div>
+		<button class="btn btn-success btn-lg addItems">Add Items</button>
+
+
+
+</body>
+</html>
+
+
+<script type="text/javascript">
+
+
+function addNewElem() {
+
+console.log("addig new elem\n");
+
+//var mainSelect = document.getElementById("item_select_main");
+var mainDiv = document.getElementById("divone");
+var newDiv = document.createElement("div");
+var newInput1 = document.createElement("input");
+newInput.type = "text"
+newInput.placeholder = "Item Name"
+newInput.className = "itemName0 addItem-inputs form-control"
+var newInput2 = document.createElement("input");
+newInput.type = "text"
+newInput.placeholder = "Price"
+newInput.className = "itemName0 addItem-inputs form-control"
+var newInput3 = document.createElement("input");
+newInput.type = "text"
+newInput.placeholder = "Description"
+newInput.className = "itemName0 addItem-inputs form-control"
+//console.log(newInput);
+//console.log(newSelect);
+//console.log(newLi);
+newDiv.appendChild(newDiv);
+newDiv.appendChild(newInput1);
+newDiv.appendChild(newInput2);
+newDiv.appendChild(newInput3);
+//console.log(newLi);
+mainDiv.appendChild(newDiv);
+
+}
+
+
+
+	$('.addItems').click(function(){
+		var itemName0 = $('.itemName0').val();
+		var ItemPrice0 = $('.ItemPrice0').val();
+		var desc0 = $('.desc0').val();
+
+		$('body').load('addItem.php',{
+			addItem : "YES",
+			itemName0 :itemName0,
+			ItemPrice0 :ItemPrice0,
+			desc0 :desc0
+
+		});
+
+
+	});
+
+	
+</script>
